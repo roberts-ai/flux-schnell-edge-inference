@@ -87,7 +87,10 @@ def infer_latents(prompt_embeds, pooled_prompt_embeds, width: int | None, height
 
 def infer(request: TextToImageRequest, _pipeline: Pipeline) -> Image:
     empty_cache()
-
+    if not request.width:
+        request.width=1024
+    if not request.height:
+        request.height=1024
     prompt_embeds, pooled_prompt_embeds, text_ids = encode_prompt(request.prompt)
 
     empty_cache()
